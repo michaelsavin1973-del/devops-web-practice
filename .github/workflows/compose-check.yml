@@ -1,0 +1,16 @@
+name: Check Docker Compose
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository files
+        uses: actions/checkout@v4
+
+      - name: Check Compose configuration
+        run: docker compose config
