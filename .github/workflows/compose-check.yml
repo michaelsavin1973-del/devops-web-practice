@@ -14,3 +14,13 @@ jobs:
 
       - name: Check Compose configuration
         run: docker compose config
+
+      - name: Start website
+        run: docker compose up -d
+
+      - name: Check website response
+        run: curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8089
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down
