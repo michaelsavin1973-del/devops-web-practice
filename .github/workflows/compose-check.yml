@@ -19,7 +19,7 @@ jobs:
         run: docker compose up -d
 
       - name: Check website response
-        run: curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8089 | grep -F "Production website BROKEN"
+        run: curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8089 | grep -F "Production website"
 
 
       - name: Stop containers
