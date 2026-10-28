@@ -19,7 +19,19 @@ jobs:
         run: docker compose up -d
 
       - name: Check website response
-        run: curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8089 | grep -F "Production website"
+        run: |
+          curl --fail --show-error --silent \
+            --retry 10 --retry-connrefused --retry-delay 2 \
+            http://localhost:8089 -o response.html
+
+          echo "Website response:"
+          cat response.html
+          echo
+
+          if ! grep -Fq "Production website" response.html; then
+            echo "ERROR: Expected text 'Production website' was not found"
+            exit 1
+          fi
 
 
       - name: Stop containers
